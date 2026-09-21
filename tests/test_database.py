@@ -29,4 +29,8 @@ class TestCurrencyDatabase:
         db = CurrencyDatabase(db_path)
 
         # Clean up process: closes the connection and deletes the temporary file.
-        
+        db.close()
+        if os.path.exists(db_path):
+            os.remove(db_path)
+
+            
