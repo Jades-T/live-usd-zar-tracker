@@ -87,10 +87,14 @@ class TestCurrencyDatabase:
         }
         ]
 
-        result = temp_db.insert_dates_multiple(test_data)
+        result = temp_db.insert_rates_multiple(test_data)
         assert result == 3
 
-    def 
-        
-        
+    def test_interest_rates_multiple_empty(self, temp_db):
+        """ Test that checks if empty data is inserted."""
+        result = temp_db.insert_rates_multiple ([])  
+        assert result == 0                                                                                                                                                                                                                                        
+
+    def test_get_latest_rates(self, temp_db):
+        """ Test to see if latest currency is located in """
                 
