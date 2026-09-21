@@ -11,15 +11,11 @@ from src.database.storage import CurrencyDatabase
 
 
 class TestCurrencyDatabase:
-    """
-    Test class for the CurrencyDatabase.
-    """
+    """ Test class for the CurrencyDatabase."""
 
     @pytest.fixture
     def temporary_db(self):
-        """
-        Creates a temporary database for testing
-        """
+        """ Creates a temporary database for testing."""
 
         # Create a file that will be used for the database in the test.
         with tempfile.NamedTemporaryFile(delete=False, suffix='.db') as temp_file:
@@ -36,14 +32,13 @@ class TestCurrencyDatabase:
             os.remove(db_path)
 
     def test_database_initialization(self, temp_db):
-        """Checks if the database can be initialized."""
+        """ Checks if the database can be initialized."""
         assert temp_db != None
         assert temp_db.connection != None
         assert temp_db.db_path.endswith('.db')
 
-
     def test_insert_rate(self, temp_db):
-        """Test to check when single rate is added into the database."""
+        """ Test to check when single rate is added into the database."""
         test_data = {
             'rate': 18.5,
             'timestamp': '2026-09-21 12:00:00',
@@ -55,9 +50,9 @@ class TestCurrencyDatabase:
         assert result == True
 
     def test_insert_rate_with_invalid_data(self, temp_db):
-        """Test data that is invalid"""
+        """ Test data that is invalid."""
         invalid_data = {
-            'rate': -1,
+            'rate': -1,         # invalid data
             'timestamp': '2026-09-21 12:00:00',
             'base_currency': 'USD',
             'target_currency': 'ZAR'
