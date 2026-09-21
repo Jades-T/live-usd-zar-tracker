@@ -57,4 +57,40 @@ class TestCurrencyDatabase:
             'base_currency': 'USD',
             'target_currency': 'ZAR'
         }
+
+        # The invalid data should still be inserted as the database does not validate.
+        # The transformation must catch this.
+        result = temp_db.insert_rate(invalid_data)
+        assert result is True
+
+    def test_insert_rates_multiple(self, temp_db):
+        """ Test inserting multiple currency rates in a batch."""
+        test_data = [
+            { 
+                'rate': 18.5,
+                'timestamp': '2024-01-15 10:30:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+
+        },
+        {
+                'rate': 18.6,
+                'timestamp': '2024-01-15 11:30:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+        },
+       {
+                'rate': 18.4,
+                'timestamp': '2024-01-15 12:30:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+        }
+        ]
+
+        result = temp_db.insert_dates_multiple(test_data)
+        assert result == 3
+
+    def 
         
+        
+                
