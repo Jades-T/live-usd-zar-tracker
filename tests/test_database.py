@@ -37,9 +37,29 @@ class TestCurrencyDatabase:
 
     def test_database_initialization(self, temp_db):
         """Checks if the database can be initialized."""
-        assert temp_db is not None
-        assert temp_db.connection is not None
+        assert temp_db != None
+        assert temp_db.connection != None
         assert temp_db.db_path.endswith('.db')
 
 
+    def test_insert_rate(self, temp_db):
+        """Test to check when single rate is added into the database."""
+        test_data = {
+            'rate': 18.5,
+            'timestamp': '2026-09-21 12:00:00',
+            'base_currency': 'USD',
+            'target_currency': 'ZAR'
+        }
+
+        result = temp_db.insert_rate(test_data)
+        assert result == True
+
+    def test_insert_rate_with_invalid_data(self, temp_db):
+        """Test data that is invalid"""
+        invalid_data = {
+            'rate': -1,
+            'timestamp': '2026-09-21 12:00:00',
+            'base_currency': 'USD',
+            'target_currency': 'ZAR'
+        }
         
