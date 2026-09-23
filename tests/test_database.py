@@ -134,14 +134,21 @@ class TestCurrencyDatabase:
         test_data = [
            {
                 'rate': 18.5,
-                'timestamp': '2026-09-22 10:00:00',
+                'timestamp': '2026-09-01 10:00:00',
                 'base_currency': 'USD',
                 'target_currency': 'ZAR',
             },
             {
                 'rate': 18.6,
-                'timestamp': '2026-09-22 11:30:00',
+                'timestamp': '2026-09-08 11:30:00',
                 'base_currency': 'USD',
                 'target_currency': 'ZAR',
             }
         ]
+        temp_db.insert_rates_multiple(test_data)
+
+        # Get data by date range:
+        rates = temp_db.get_rates_by_date_range('2026-09-01', '2026-09-08')
+
+        assert isinstance(rates, list)
+        # data should be returned within a range (1 week or more.)
