@@ -71,7 +71,6 @@ class TestCurrencyDatabase:
                 'timestamp': '2024-01-15 10:30:00',
                 'base_currency': 'USD',
                 'target_currency': 'ZAR'
-
         },
         {
                 'rate': 18.6,
@@ -96,5 +95,35 @@ class TestCurrencyDatabase:
         assert result == 0                                                                                                                                                                                                                                        
 
     def test_get_latest_rates(self, temp_db):
-        """ Test to see if latest currency is located in """
-                
+        """ Test to see if latest currency is located in datbase."""
+        # Test data to be used:
+        test_data = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-22 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-22 11:30:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            }
+        ]
+
+        temp_db.insert_rates_multiple(test_data)
+
+        # Get latest rates:
+        latest = temp_db.get_latest_rates(limit=5)
+
+        assert isinstance(latest, list)
+        assert len(latest) >= 2
+
+        # Check the structure to see if theres a rate, timestamp in the dictionary:
+        for t_data in latest:
+            assert isinstance(t_data, dict)
+            assert 'rate' in latest
+            assert 'timestamp' in latest
+            assert 'base_currency' in latest
+            assert 'target_currency' in latest
