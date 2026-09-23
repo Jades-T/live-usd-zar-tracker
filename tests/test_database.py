@@ -152,3 +152,33 @@ class TestCurrencyDatabase:
 
         assert isinstance(rates, list)
         # data should be returned within a range (1 week or more.)
+
+    def test_get_statistics(self, temp_db):
+        """ Test getting the stats for the database. """
+        # Test data to be used:
+        test_data = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-22 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-22 11:30:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            }
+        ]
+
+        temp_db.insert_rates_multiple(test_data)
+
+        # Get the statistics from the database:
+        stats = temp_db.get_statistics()
+
+        assert isinstance(stats, dict)
+        assert 'total_records' in stats
+        assert 'min_rate' in stats
+        assert 'max_rate' in stats
+        assert 'avg_rate' in stats
+        assert stats['total_records'] >= 2
