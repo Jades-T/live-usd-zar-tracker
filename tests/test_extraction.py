@@ -17,7 +17,22 @@ class TestCurrencyExtractor:
 
     def test_get_current_rate_structure(self):
         """ Test that checks if the current_rate turns the correct data structure."""
-        pass
+        extraction = CurrencyExtractor()
+        result = extraction.get_current_rate()
+
+        # The result should be None if the API fails, but if successul a dictionary.
+        # Checks to see the structure of the currency data
+        if result:
+            assert isinstance(result, dict)
+            assert 'rate' in result
+            assert 'timestamp' in result
+            assert 'base_currency' in result
+            assert 'target_currency' in result
+            assert result['base_currency'] == 'USD'
+            assert result['target_currency'] == 'ZAR'
+            assert isinstance(result['rate'], (int, float))
+            assert result['rate'] > 0               # rate can never be -ve
+
 
     def test_get_current_rate_valid_values(self):
         """ Test that checks if the current_rate returns the valid values."""
