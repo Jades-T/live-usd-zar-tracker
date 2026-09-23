@@ -127,3 +127,21 @@ class TestCurrencyDatabase:
             assert 'timestamp' in latest
             assert 'base_currency' in latest
             assert 'target_currency' in latest
+
+    def test_get_rates_by_date_range(self, temp_db):
+        """ Test to check currency rates per date range."""
+        # Data used for testing:
+        test_data = [
+           {
+                'rate': 18.5,
+                'timestamp': '2026-09-22 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-22 11:30:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            }
+        ]
