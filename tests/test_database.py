@@ -182,3 +182,10 @@ class TestCurrencyDatabase:
         assert 'max_rate' in stats
         assert 'avg_rate' in stats
         assert stats['total_records'] >= 2
+
+    def test_database_close_connection(self, temp_db):
+        """ Test that checks if the datbase connection closes. """
+        assert temp_db.connection is not None
+        
+        # The close method should close the database connection without errors. 
+        temp_db.close()
