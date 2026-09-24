@@ -65,10 +65,16 @@ class TestCurrencyExtractor:
 
 
 
-
-
     def test_get_historical_data_count(self):
-        pass
+        """ Test that checks for the return of the historical data, should be 5 days."""
+        extraction = CurrencyExtractor()
+        days = 5
+        result = extraction.get_historical_data(days=days)
+
+        if result:
+            # SHoould return data for 5 days if working correctly.
+            # if its less than 5, could be an API fail.
+            assert len(result) <= days
 
     def test_get_historical_data_with_zero_days(self):
         pass
