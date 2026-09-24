@@ -10,11 +10,16 @@ class TestDataTransformer:
     """ Test class for the transformation of data."""
 
     @pytest.fixture
-    def transformer():
-        pass
+    def transformer(self):
+        """ This creates a DataTransformer instance for testing. """
+        return DataTransformer()
 
-    def test_transformer_initialization():
-        pass
+    def test_transformer_initialization(self, transformer):
+        """ Test that checks if transformer can be initialized."""
+        assert transformer is not None
+        assert 'USD' in transformer.valid_currencies
+        assert 'ZAR' in transformer.valid_currencies
+
 
     def test_clean_rate_data_valid_rate():
         pass
