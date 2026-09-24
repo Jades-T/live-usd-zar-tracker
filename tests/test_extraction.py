@@ -50,8 +50,22 @@ class TestCurrencyExtractor:
             assert len(result['rate']) > 0 
 
     def test_get_historical_data_structure(self):
-        """ Test that checks if the historical_datareturns the correct structure. """
-        pass
+        """ Test that checks if the historical_data returns the correct structure. """
+        extraction = CurrencyExtractor()
+        result = extraction.get_historical_data(days=5)
+
+        assert isinstance(result, list)
+
+        if result:
+            # each data item should be a dict.
+            for data in result:
+                assert isinstance(data, dict)
+                assert 'rate' in result
+                assert 'timestamp' in result
+
+
+
+
 
     def test_get_historical_data_count(self):
         pass
