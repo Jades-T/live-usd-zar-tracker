@@ -21,8 +21,21 @@ class TestDataTransformer:
         assert 'ZAR' in transformer.valid_currencies
 
 
-    def test_clean_rate_data_valid_rate():
-        pass
+    def test_clean_rate_data_valid_rate(self, transformer):
+        """ Test to check for cleaning valid rate data."""
+        valid_data = {
+            'rate': 18.5,
+            'timestamp': '2026-09-21 10:00:00',
+            'base_currency': 'USD',
+            'target_currency': 'ZAR'
+        }
+
+        result = transformer.clean_rate_valid_data(valid_data)
+
+        assert result is not None
+        assert result['rate'] == 18.5
+        assert result['base_currency'] == 'USD'
+        assert result['target_currency'] == 'ZAR'
 
     def test_clean_rate_data_invalid_rate():
         pass
