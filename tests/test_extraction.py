@@ -36,7 +36,18 @@ class TestCurrencyExtractor:
 
     def test_get_current_rate_valid_values(self):
         """ Test that checks if the current_rate returns the valid values."""
-        pass
+        extraction = CurrencyExtractor()
+        result = extraction.get_current_rate()
+
+        if result:
+            # Rate should be between 15-20 why?
+            assert 15 < result['rate'] < 25
+
+            # timestamp should be a string
+            assert isinstance(result['timestamp'], str)
+
+            # timestamp should have date information (date, time etc)
+            assert len(result['rate']) > 0 
 
     def test_get_historical_data_structure(self):
         """ Test that checks if the historical_datareturns the correct structure. """
