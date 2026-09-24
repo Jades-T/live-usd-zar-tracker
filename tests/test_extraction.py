@@ -77,7 +77,12 @@ class TestCurrencyExtractor:
             assert len(result) <= days
 
     def test_get_historical_data_with_zero_days(self):
-        pass
+        """ Test that checks if historical data can be returned with zero day requests."""
+        extraction = CurrencyExtractor()
+        result = extraction.get_historical_data(days=0)
+
+        # empty list should be returned.
+        assert isinstance(result, list)
 
 
 if __name__ == '__main__':
