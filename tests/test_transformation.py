@@ -38,37 +38,48 @@ class TestDataTransformer:
         assert result['target_currency'] == 'ZAR'
 
     def test_clean_rate_data_invalid_rate():
+        """ Test cleaning data with invalid rate."""
         pass
 
     def test_clean_rate_data_missing():
+        """ Test that checks cleaning of dat with missing fields. """
         pass
 
     def test_clean_rate_data_invalid_currency():
+        """ Test cleaning data with invalid currency."""
         pass
 
     def test_clean_rate_data_case_insensitive():
+        """ Test that currency code are case-sensitive. """
         pass
 
     def test_transform_to_dataframe():
+        """ Test tranforming the list of dictionaries to a DataFrame."""
         pass
 
     def test_transform_to_dataframe_empty():
+        """ Test transformation of empty list to DataFrame. """
         pass
 
 
     def test_add_moving_average():
+        """ Test that checks for adding moving average to DataFrame. """
         pass
 
     def test_add_rate_change():
+        """ Test that checks adding rate change to DataFrame. """
         pass
 
     def test_detect_outliers():
+        """ Test the outlier detection in DataFrame. """
         pass
 
     def test_aggregate_data():
+        """ Test that checks data aggregation by time period. """
         pass
 
     def test_validate_data_quality():
+        """ Test that checks for the data quality. """
         pass
 
 if __name__ == "__main__":
