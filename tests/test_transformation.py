@@ -126,8 +126,29 @@ class TestDataTransformer:
 
     def test_add_moving_average(self, transformer):
         """ Test that checks for adding moving average to DataFrame. """
-        pass
-
+        data_list = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-21 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-21 11:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                'rate': 18.4,
+                'timestamp': '2026-09-21 12:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            }
+        ]
+        df = transformer.transform_to_database(data_list)
+        df = transformer.add_moving_average(df, window=2)
+        
     def test_add_rate_change(self, transformer):
         """ Test that checks adding rate change to DataFrame. """
         pass
