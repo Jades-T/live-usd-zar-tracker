@@ -115,34 +115,13 @@ class TestDataTransformer:
         assert len(dataframe) == 2
         assert 'rate' in dataframe.columns
         assert 'timestamp' in dataframe.columns
-        
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
 
     def test_transform_to_dataframe_empty(self, transformer):
         """ Test transformation of empty list to DataFrame. """
-        pass
+        df = transformer.transform_to_dataframe([])
+
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 0
 
 
     def test_add_moving_average(self, transformer):
