@@ -87,7 +87,58 @@ class TestDataTransformer:
 
     def test_transform_to_dataframe(self, transformer):
         """ Test tranforming the list of dictionaries to a DataFrame."""
-        pass
+        data_list = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-21 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                
+                'rate': 18.6,
+                'timestamp': '2026-09-21 11:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+
+                'rate': 18.4,
+                'timestamp': '2026-09-21 12:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            }
+        ]
+        dataframe = transformer.transform_to_dataframe(data_list)
+
+        assert isinstance(dataframe, pd.DataFrame)
+        assert len(dataframe) == 2
+        assert 'rate' in dataframe.columns
+        assert 'timestamp' in dataframe.columns
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
     def test_transform_to_dataframe_empty(self, transformer):
         """ Test transformation of empty list to DataFrame. """
