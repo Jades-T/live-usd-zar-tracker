@@ -39,7 +39,15 @@ class TestDataTransformer:
 
     def test_clean_rate_data_invalid_rate():
         """ Test cleaning data with invalid rate."""
-        pass
+        invalid_data = {
+            'rate': -5, # negative rate, seems odd right?
+            'timestamp': '2026-09-21 10:00:00',
+            'base_currency': 'USD',
+            'target_currency': 'ZAR'
+        }
+
+        result = transformer.get_clean_rate(invalid_data)
+        assert result is None
 
     def test_clean_rate_data_missing():
         """ Test that checks cleaning of dat with missing fields. """
