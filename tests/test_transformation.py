@@ -148,10 +148,32 @@ class TestDataTransformer:
         ]
         df = transformer.transform_to_database(data_list)
         df = transformer.add_moving_average(df, window=2)
-        
+
+        assert 'moving_avg_2' in df.columns
+
+
     def test_add_rate_change(self, transformer):
         """ Test that checks adding rate change to DataFrame. """
-        pass
+        data_list = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-21 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-21 11:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR',
+            }
+        ]
+
+        df = transformer.transform_to_dataframe(data_list)
+        df = transformer.add_rate_change(df)
+
+        assert 'rate_change' in df.columns
+        assert 'rate_change_percent' in df.columns
 
     def test_detect_outliers(self, transformer):
         """ Test the outlier detection in DataFrame. """
