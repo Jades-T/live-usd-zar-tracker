@@ -37,56 +37,80 @@ class TestDataTransformer:
         assert result['base_currency'] == 'USD'
         assert result['target_currency'] == 'ZAR'
 
-    def test_clean_rate_data_invalid_rate():
+    def test_clean_rate_data_invalid_rate(self, transformer):
         """ Test cleaning data with invalid rate."""
-        invalid_data = {
+        invalid_rate = {
             'rate': -5, # negative rate, seems odd right?
             'timestamp': '2026-09-21 10:00:00',
             'base_currency': 'USD',
             'target_currency': 'ZAR'
         }
 
-        result = transformer.get_clean_rate(invalid_data)
+        result = transformer.get_clean_rate(invalid_rate)
         assert result is None
 
-    def test_clean_rate_data_missing():
+    def test_clean_rate_data_missing(self, transformer):
         """ Test that checks cleaning of dat with missing fields. """
-        pass
+        missing_currency = {
+            'rate': 18.5,
+            'timestamp': '2026-09-21 10:00:00',
+            # base and target currency missing here!
+        }
+        result = transformer.clean_rate_data(missing_currency)
+        assert result is None
 
-    def test_clean_rate_data_invalid_currency():
+    def test_clean_rate_data_invalid_currency(self, transformer):
         """ Test cleaning data with invalid currency."""
-        pass
+        invalid_currency = {
+            'rate': 18.5,
+            'timestamp': '2026-09-21 10:00:00',
+            'base_currency': 'XXX',
+            'target_currency': 'ZAR'
+        }
 
-    def test_clean_rate_data_case_insensitive():
+        result = transformer.clean_rate_data(invalid_currency)
+        assert result is None
+
+    def test_clean_rate_data_case_insensitive(self, transformer):
         """ Test that currency code are case-sensitive. """
-        pass
+        case_sensitive_data = {
+            'rate': 18.5,
+            'timestamp': '2026-09-21 10:00:00',
+            'base_currency': 'usd',
+            'target_currency': 'zar'
+        }
 
-    def test_transform_to_dataframe():
+        result = transformer.clean_rate_data(case_sensitive_data)
+        assert result is not None
+        assert result['base_currency'] == "USD"
+        assert result['target_currency'] == 'ZAR'
+
+    def test_transform_to_dataframe(self, transformer):
         """ Test tranforming the list of dictionaries to a DataFrame."""
         pass
 
-    def test_transform_to_dataframe_empty():
+    def test_transform_to_dataframe_empty(self, transformer):
         """ Test transformation of empty list to DataFrame. """
         pass
 
 
-    def test_add_moving_average():
+    def test_add_moving_average(self, transformer):
         """ Test that checks for adding moving average to DataFrame. """
         pass
 
-    def test_add_rate_change():
+    def test_add_rate_change(self, transformer):
         """ Test that checks adding rate change to DataFrame. """
         pass
 
-    def test_detect_outliers():
+    def test_detect_outliers(self, transformer):
         """ Test the outlier detection in DataFrame. """
         pass
 
-    def test_aggregate_data():
+    def test_aggregate_data(self, transformer):
         """ Test that checks data aggregation by time period. """
         pass
 
-    def test_validate_data_quality():
+    def test_validate_data_quality(self, transformer):
         """ Test that checks for the data quality. """
         pass
 
