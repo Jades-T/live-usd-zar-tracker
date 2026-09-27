@@ -191,10 +191,10 @@ class TestDataTransformer:
                 'target_currency': 'ZAR'
             }
         ]
-        data_frame = transformer.transform_to_dataframe(data_list)
-        data_frame = transformer.detect_outliers(data_frame)
+        dataframe = transformer.transform_to_dataframe(data_list)
+        dataframe = transformer.detect_outliers(dataframe)
 
-        assert 'is_outlier' in data_frame.columns
+        assert 'is_outlier' in dataframe.columns
 
     def test_aggregate_data(self, transformer):
         """ Test that checks data aggregation by time period. """
@@ -213,14 +213,30 @@ class TestDataTransformer:
             }
         ]
 
-        data_frame = transformer.transform_to_dataframe(data_list)
-        aggregate_data_frame = transformer.aggregate_data(data_frame, freq = 'D')
+        dataframe = transformer.transform_to_dataframe(data_list)
+        aggregate_dataframe = transformer.aggregate_data(dataframe, freq = 'D')
 
-        assert isinstance(aggregate_data_frame, pd.DataFrame)
+        assert isinstance(aggregate_dataframe, pd.DataFrame)
 
     def test_validate_data_quality(self, transformer):
         """ Test that checks for the data quality. """
-        pass
+        data_list = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-21 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+            }
+        ]
+        dataframe = transformer.transform_to_dataframe(data_list)
+        quality = transformer.validate_data_quality(dataframe)
+
+        assert isinstance(quality, dict)
+        assert 'total_records' in quality
+        assert 'missing_values' in quality
+        assert 'duplication_records' in quality
+        assert 'validation_passed' in quality
+        assert quality['total_records'] == 1
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
