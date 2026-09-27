@@ -15,10 +15,10 @@ class Config:
         load_dotenv()
 
         # Database configuration:
-        self.database_path = os.getenv("DATABASE_PATH", "currency_rates.db")
+        self.database_path: str = os.getenv("DATABASE_PATH", "currency_rates.db")
 
         # API configuration:
-        self.api_base_url = os.getenv('API_BASE_URL', 'https://api.exchangerate-api.com/v4/latest/USD')
+        self.api_base_url: str = os.getenv('API_BASE_URL', 'https://api.exchangerate-api.com/v4/latest/USD')
         self.api_timeout = int(os.getenv('API_TIMEOUT', '10'))
 
         # Email configuration:
@@ -26,15 +26,15 @@ class Config:
 
         # Dashboard Configuration:
         self.dashboard_port = int(os.getenv('DASHBOARD_PORT', '8501'))
-        self.dashboard_host = os.getenv('DASHBOARD_HOST', 'localhost')
+        self.dashboard_host: str = os.getenv('DASHBOARD_HOST', 'localhost')
 
         # Report Configiration:
-        self.reports_dir = os.getenv('REPORTS_DIR', 'reports')
-        self.logs_dir = os.getenv('LOGS_DIR', 'logs')
+        self.reports_dir: str = os.getenv('REPORTS_DIR', 'reports')
+        self.logs_dir: str = os.getenv('LOGS_DIR', 'logs')
 
         # Automation configuration:
         self.auto_refresh_minutes = int(os.getenv('AUTO_REFRESH_MINUTES', '60'))
-        self.enable_email_alerts = os.getenv('ENABLE_EMAIL_ALERTS', 'false').lower() == 'true'
+        self.enable_email_alerts: bool = os.getenv('ENABLE_EMAIL_ALERTS', 'false').lower() == 'true'
 
 
     def get_database_path(self) -> str:
@@ -46,4 +46,11 @@ class Config:
         """
         return self.database_path
 
-
+    def is_email_configured(self) -> bool:
+        """
+        Checks if the email configuration is done.
+        
+        Returns:
+            True if email credentials are configured, False if not.
+        """
+        return bool(self.sender_email and self.sender_password)
