@@ -54,3 +54,17 @@ class Config:
             True if email credentials are configured, False if not.
         """
         return bool(self.sender_email and self.sender_password)
+
+    def string_representation_config(self) -> str:
+        """
+        Displays the configuration.
+
+        Returns:
+            - config database path
+            - api timeoit
+            - email config.
+        """
+        return (f"Config(database_path: {self.database_path}, "
+                f"api_time: {self.api_timeout}, "
+                f"Email_configured: {self.is_email_configured()}")
+
