@@ -28,4 +28,12 @@ class Config:
         self.dashboard_port = int(os.getenv('DASHBOARD_PORT', '8501'))
         self.dashboard_host = os.getenv('DASHBOARD_HOST', 'localhost')
 
-        # 
+        # Report Configiration:
+        self.reports_dir = os.getenv('REPORTS_DIR', 'reports')
+        self.logs_dir = os.getenv('LOGS_DIR', 'logs')
+
+        # Automation configuration:
+        self.auto_refresh_minutes = int(os.getenv('AUTO_REFRESH_MINUTES', '60'))
+        self.enable_email_alerts = os.getenv('ENABLE_EMAIL_ALERTS', 'false').lower() == 'true'
+
+        
