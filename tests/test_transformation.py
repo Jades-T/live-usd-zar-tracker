@@ -198,7 +198,25 @@ class TestDataTransformer:
 
     def test_aggregate_data(self, transformer):
         """ Test that checks data aggregation by time period. """
-        pass
+        data_list = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-21 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-21 11:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+            }
+        ]
+
+        data_frame = transformer.transform_to_dataframe(data_list)
+        aggregate_data_frame = transformer.aggregate_data(data_frame, freq = 'D')
+
+        assert isinstance(aggregate_data_frame, pd.DataFrame)
 
     def test_validate_data_quality(self, transformer):
         """ Test that checks for the data quality. """
