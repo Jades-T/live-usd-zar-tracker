@@ -20,3 +20,12 @@ class Config:
         # API configuration:
         self.api_base_url = os.getenv('API_BASE_URL', 'https://api.exchangerate-api.com/v4/latest/USD')
         self.api_timeout = int(os.getenv('API_TIMEOUT', '10'))
+
+        # Email configuration:
+        # self.send_message_server = os.getenv
+
+        # Dashboard Configuration:
+        self.dashboard_port = int(os.getenv('DASHBOARD_PORT', '8501'))
+        self.dashboard_host = os.getenv('DASHBOARD_HOST', 'localhost')
+
+        # 
