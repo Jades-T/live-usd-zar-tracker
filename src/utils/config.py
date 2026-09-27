@@ -36,4 +36,14 @@ class Config:
         self.auto_refresh_minutes = int(os.getenv('AUTO_REFRESH_MINUTES', '60'))
         self.enable_email_alerts = os.getenv('ENABLE_EMAIL_ALERTS', 'false').lower() == 'true'
 
+
+    def get_database_path(self) -> str:
+        """ 
+        Gets the database path.
         
+        Returns:
+            Path to the SQLite database file.
+        """
+        return self.database_path
+
+
