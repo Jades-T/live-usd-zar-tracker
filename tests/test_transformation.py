@@ -177,7 +177,24 @@ class TestDataTransformer:
 
     def test_detect_outliers(self, transformer):
         """ Test the outlier detection in DataFrame. """
-        pass
+        data_list = [
+            {
+                'rate': 18.5,
+                'timestamp': '2026-09-21 10:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+            },
+            {
+                'rate': 18.6,
+                'timestamp': '2026-09-21 11:00:00',
+                'base_currency': 'USD',
+                'target_currency': 'ZAR'
+            }
+        ]
+        data_frame = transformer.transform_to_dataframe(data_list)
+        data_frame = transformer.detect_outliers(data_frame)
+
+        assert 'is_outlier' in data_frame.columns
 
     def test_aggregate_data(self, transformer):
         """ Test that checks data aggregation by time period. """
