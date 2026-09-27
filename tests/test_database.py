@@ -6,7 +6,7 @@ These tests verify that the database operations work correctly.
 import pytest
 import tempfile
 import os
-from src.database.storage import CurrencyDatabase
+from database.storage_db import CurrencyDatabase
 
 
 
@@ -19,7 +19,7 @@ class TestCurrencyDatabase:
 
         # Create a file that will be used for the database in the test.
         with tempfile.NamedTemporaryFile(delete=False, suffix='.db') as temp_file:
-            db_path = temp_file.name
+            db_path: str = temp_file.name
 
         # This creates a database instance:
         db = CurrencyDatabase(db_path)
@@ -31,13 +31,13 @@ class TestCurrencyDatabase:
         if os.path.exists(db_path):
             os.remove(db_path)
 
-    def test_database_initialization(self, temp_db):
+    def test_database_initialization(self, temp_db) -> None:
         """ Checks if the database can be initialized."""
         assert temp_db != None
         assert temp_db.connection != None
         assert temp_db.db_path.endswith('.db')
 
-    def test_insert_rate(self, temp_db):
+    def test_insert_rate(self, temp_db) -> None:
         """ Test to check when single rate is added into the database."""
         test_data = {
             'rate': 18.5,
@@ -49,7 +49,7 @@ class TestCurrencyDatabase:
         result = temp_db.insert_rate(test_data)
         assert result == True
 
-    def test_insert_rate_with_invalid_data(self, temp_db):
+    def test_insert_rate_with_invalid_data(self, temp_db) -> None:
         """ Test data that is invalid."""
         invalid_data = {
             'rate': -1,         # invalid data
@@ -63,7 +63,7 @@ class TestCurrencyDatabase:
         result = temp_db.insert_rate(invalid_data)
         assert result is True
 
-    def test_insert_rates_multiple(self, temp_db):
+    def test_insert_rates_multiple(self, temp_db) -> None:
         """ Test inserting multiple currency rates in a batch."""
         test_data = [
             { 
@@ -89,12 +89,12 @@ class TestCurrencyDatabase:
         result = temp_db.insert_rates_multiple(test_data)
         assert result == 3
 
-    def test_interest_rates_multiple_empty(self, temp_db):
+    def test_interest_rates_multiple_empty(self, temp_db) -> None:
         """ Test that checks if empty data is inserted."""
         result = temp_db.insert_rates_multiple ([])  
         assert result == 0                                                                                                                                                                                                                                        
 
-    def test_get_latest_rates(self, temp_db):
+    def test_get_latest_rates(self, temp_db) -> None:
         """ Test to see if latest currency is located in datbase."""
         # Test data to be used:
         test_data = [
@@ -128,7 +128,7 @@ class TestCurrencyDatabase:
             assert 'base_currency' in latest
             assert 'target_currency' in latest
 
-    def test_get_rates_by_date_range(self, temp_db):
+    def test_get_rates_by_date_range(self, temp_db) -> None:
         """ Test to check currency rates per date range."""
         # Data used for testing:
         test_data = [
@@ -153,7 +153,7 @@ class TestCurrencyDatabase:
         assert isinstance(rates, list)
         # data should be returned within a range (1 week or more.)
 
-    def test_get_statistics(self, temp_db):
+    def test_get_statistics(self, temp_db) -> None:
         """ Test getting the stats for the database. """
         # Test data to be used:
         test_data = [
@@ -183,7 +183,7 @@ class TestCurrencyDatabase:
         assert 'avg_rate' in stats
         assert stats['total_records'] >= 2
 
-    def test_database_close_connection(self, temp_db):
+    def test_database_close_connection(self, temp_db) -> None:
         """ Test that checks if the datbase connection closes. """
         assert temp_db.connection is not None
 

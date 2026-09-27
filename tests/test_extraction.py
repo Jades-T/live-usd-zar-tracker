@@ -9,13 +9,13 @@ from data.extract_data import CurrencyExtractor
 class TestCurrencyExtractor:
     """ Test class for CurrencyExtractor functionality."""
 
-    def test_extraction_initialization(self):
+    def test_extraction_initialization(self) -> None:
         """ Test that checks if the extraction can be initialised."""
         extraction = CurrencyExtractor()
         assert extraction is not None
         assert extraction.base_url == "https://api.exchangerate-api.com/v4/latest/USD"
 
-    def test_get_current_rate_structure(self):
+    def test_get_current_rate_structure(self) -> None:
         """ Test that checks if the current_rate turns the correct data structure."""
         extraction = CurrencyExtractor()
         result = extraction.get_current_rate()
@@ -34,7 +34,7 @@ class TestCurrencyExtractor:
             assert result['rate'] > 0               # rate can never be -ve
 
 
-    def test_get_current_rate_valid_values(self):
+    def test_get_current_rate_valid_values(self) -> None:
         """ Test that checks if the current_rate returns the valid values."""
         extraction = CurrencyExtractor()
         result = extraction.get_current_rate()
@@ -49,7 +49,7 @@ class TestCurrencyExtractor:
             # timestamp should have date information (date, time etc)
             assert len(result['rate']) > 0 
 
-    def test_get_historical_data_structure(self):
+    def test_get_historical_data_structure(self) -> None:
         """ Test that checks if the historical_data returns the correct structure. """
         extraction = CurrencyExtractor()
         result = extraction.get_historical_data(days=5)
@@ -65,7 +65,7 @@ class TestCurrencyExtractor:
 
 
 
-    def test_get_historical_data_count(self):
+    def test_get_historical_data_count(self) -> None:
         """ Test that checks for the return of the historical data, should be 5 days."""
         extraction = CurrencyExtractor()
         days = 5
@@ -76,7 +76,7 @@ class TestCurrencyExtractor:
             # if its less than 5, could be an API fail.
             assert len(result) <= days
 
-    def test_get_historical_data_with_zero_days(self):
+    def test_get_historical_data_with_zero_days(self) -> None:
         """ Test that checks if historical data can be returned with zero day requests."""
         extraction = CurrencyExtractor()
         result = extraction.get_historical_data(days=0)
