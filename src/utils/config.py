@@ -68,3 +68,12 @@ class Config:
                 f"api_time: {self.api_timeout}, "
                 f"Email_configured: {self.is_email_configured()}")
 
+# Global config instance:
+config = Config()
+
+if __name__ == "__main__":
+    # Test the configuration:
+    print("Testing the configuration:")
+    print(f"Configuration: {config}")
+    print(f"Database Path: {config.get_database_path()}")
+    print(f"Email configuration: {config.is_email_configured()}")
