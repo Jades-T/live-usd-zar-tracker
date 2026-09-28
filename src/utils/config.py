@@ -22,7 +22,10 @@ class Config:
         self.api_timeout = int(os.getenv('API_TIMEOUT', '10'))
 
         # Email configuration:
-        # self.send_message_server = os.getenv
+        self.smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+        self.smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        self.sender_email = os.getenv('SENDER_EMAIL', '')
+        self.sender_password = os.getenv('SENDER_PASSWORD', '')
 
         # Dashboard Configuration:
         self.dashboard_port = int(os.getenv('DASHBOARD_PORT', '8501'))
