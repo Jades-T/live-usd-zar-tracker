@@ -37,3 +37,17 @@ class DataTransformer:
                 if field not in raw_data:
                     print(f"Required field missing: {field}")
                     return None
+
+            # Check that the rate is a -ve number.
+            rate = float(raw_data['rate'])
+            if rate <= 0 or rate >= 100:
+                print(f"Invalid rate value: {rate}")
+                return None
+
+            # Check currencies are uppercase.
+            base = raw_data['base_currency'].upper()
+            target = raw_data['target_currency'].upper()
+
+            if base and target not in self.valid_currencies:
+                print(f"Invalid currency pairs: {base}/{target}")
+                return None
