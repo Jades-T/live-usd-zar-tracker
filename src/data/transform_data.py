@@ -79,6 +79,23 @@ class DataTransformer:
         Returns:
             Cleaned timestamp string of None if invalid.        
         """
+        try:
+            if isinstance(timestamp, str):
+                # different format options:
+                formats = [
+                    '%Y-%m%-%d% %H:%M:%S',
+                    '%Y-%m-%d',
+                    '%d/%m/%Y %H:%M:%S',
+                    '%d/%m/%Y'
+                ]
 
-        
+                for format in formats:
+                    try:
+                        df = datetime.strftime(timestamp, format)
+                        return dt.strftime('%Y-%m-%d %H:%M:%S')
+                    except ValueError:
+                        continue
+
+                    
+                        
 
