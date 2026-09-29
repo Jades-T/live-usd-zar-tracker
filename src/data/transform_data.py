@@ -15,7 +15,7 @@ class DataTransformer:
     def __init__(self) -> None:
         self.valid_currencies: list[str] = ['USD', 'ZAR', 'EUR', 'GBP']
 
-    def clean_the_rate_data(self, raw_data):
+    def clean_the_rate_data(self, raw_data) -> None:
         """
         Cleans and validates the single rate data point.
         Checks for missing values, invalid types.
@@ -26,3 +26,14 @@ class DataTransformer:
         Returns:
             - Cleaned dictionary / None if data is invalid.
         """
+        if not raw_data:
+            return None
+
+        try:
+            required_fields: list[str] = ['rate', 'timestamp', 'base_currency', 'target_currency']
+            
+            # Checks if the required data fields exists.
+            for field in required_fields:
+                if field not in raw_data:
+                    print(f"Required field missing: {field}")
+                    return None
