@@ -12,10 +12,10 @@ class DataTransformer:
     - Ensures the data has quality before used for analysis / viz.
     """
 
-    def __init__(self) -> None:
-        self.valid_currencies: list[str] = ['USD', 'ZAR', 'EUR', 'GBP']
+    def __init__(self):
+        self.valid_currencies: list = ['USD', 'ZAR', 'EUR', 'GBP']
 
-    def clean_the_rate_data(self, raw_data):
+    def clean_the_rate_data(self, raw_data: dict):
         """
         Cleans and validates the single rate data point.
         Checks for missing values, invalid types.
@@ -30,7 +30,7 @@ class DataTransformer:
             return None
 
         try:
-            required_fields: list[str] = ['rate', 'timestamp', 'base_currency', 'target_currency']
+            required_fields: list = ['rate', 'timestamp', 'base_currency', 'target_currency']
             
             # Checks if the required data fields exists.
             for field in required_fields:
@@ -53,7 +53,7 @@ class DataTransformer:
                 return None
 
             # Clean timestamp data
-            timestamp = self._clean_timestamp(raw_data['timestamp'])
+            timestamp: str = self._clean_timestamp(raw_data['timestamp'])
             if not timestamp:
                 return None
 
@@ -69,7 +69,7 @@ class DataTransformer:
             print(f"Error cleaning data: {error}")
             return None
     
-    def _clean_timestamp(self, timestamp: str) -> str:
+    def _clean_timestamp(self, timestamp:str) ->  str:
         """ 
         Clean the timestamp format.
 
@@ -82,7 +82,7 @@ class DataTransformer:
         try:
             if isinstance(timestamp, str):
                 # different format options:
-                formats = [
+                formats: list[str] = [
                     '%Y-%m%-%d% %H:%M:%S',
                     '%Y-%m-%d',
                     '%d/%m/%Y %H:%M:%S',
@@ -91,11 +91,30 @@ class DataTransformer:
 
                 for format in formats:
                     try:
-                        df = datetime.strftime(timestamp, format)
+                        dt: str = datetime.strftime(timestamp, format)
                         return dt.strftime('%Y-%m-%d %H:%M:%S')
                     except ValueError:
                         continue
+        except Exception as error: 
+            print(f"Error clean timestamp: {error}")
 
-                    
-                        
+    def transform_to_dataframe(self, data_list: list) -> pd.DataFrame:
+        """
+        Takes a list of dictionaries and creates a pandas Dataframe with it.
 
+        Args:
+            - data_list: List of dictionaries (rate data)
+
+        Returns:
+            - pandas Dataframe with data.
+        """
+        if not data_list:
+            return pd.DataFrame()
+
+        try:
+            # converts the data_list to a dataframe.
+            dataframe = pd.DataFrame(data_list)
+
+            # Check for correct datatypes:
+            dataframe['rate'] = pd.to_numeric(dataframe['rate'], errors='coerce')
+            # errors='coerce' : tells pandas not to throw an error if it cant convert the list to dataframe.
