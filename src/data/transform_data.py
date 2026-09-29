@@ -116,5 +116,23 @@ class DataTransformer:
             dataframe = pd.DataFrame(data_list)
 
             # Check for correct datatypes:
-            dataframe['rate'] = pd.to_numeric(dataframe['rate'], errors='coerce')
             # errors='coerce' : tells pandas not to throw an error if it cant convert the list to dataframe.
+
+            dataframe['rate'] = pd.to_numeric(dataframe['rate'], errors='coerce')
+            dataframe['timestamp'] = pd.to_datetime(dataframe['timestamp'], errors='coerce')
+
+            # Remove rows with invalid/missing data:
+            dataframe = dataframe.dropna()
+
+            dataframe = dataframe.sort_values('timestamp')
+
+            dataframe = dataframe.reset_index(drop=True)
+
+            return dataframe
+
+        except Exception as error:
+            print(f"Error transforming to DataFrame: {error}")
+            return pd.DataFrame()
+
+        
+
