@@ -15,7 +15,7 @@ class DataTransformer:
     def __init__(self) -> None:
         self.valid_currencies: list[str] = ['USD', 'ZAR', 'EUR', 'GBP']
 
-    def clean_the_rate_data(self, raw_data) -> None:
+    def clean_the_rate_data(self, raw_data):
         """
         Cleans and validates the single rate data point.
         Checks for missing values, invalid types.
@@ -51,3 +51,23 @@ class DataTransformer:
             if base and target not in self.valid_currencies:
                 print(f"Invalid currency pairs: {base}/{target}")
                 return None
+
+            # Clean timestamp data
+            timestamp = self._clean_timestamp(raw_data['timestamp'])
+            if not timestamp:
+                return None
+
+            cleaned_data = {
+                'rate': round(rate, 4),
+                'timestamp': timestamp,
+                'base_currency': base,
+                'target_currency': target
+            }
+            return cleaned_data
+        
+        except (ValueError, TypeError) as error:
+            print(f"Error cleaning data: {error}")
+            return None
+    
+    def _clean_timestamp(self, timestamp: str) -> str:
+        pass
