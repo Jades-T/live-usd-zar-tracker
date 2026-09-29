@@ -70,4 +70,15 @@ class DataTransformer:
             return None
     
     def _clean_timestamp(self, timestamp: str) -> str:
-        pass
+        """ 
+        Clean the timestamp format.
+
+        Args:
+            timestamp: raw timestamp string (not yet cleaned)
+
+        Returns:
+            Cleaned timestamp string of None if invalid.        
+        """
+
+        
+
